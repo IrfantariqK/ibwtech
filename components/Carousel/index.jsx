@@ -6,13 +6,18 @@ const carouselImages = ["/1.jpg", "/2.jpg", "/3.jpg"];
 
 export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % carouselImages.length);
-    }, 5000);
+    const timer = isHovered
+      ? null
+      : setInterval(() => {
+          setCurrentSlide(
+            (prevSlide) => (prevSlide + 1) % carouselImages.length
+          );
+        }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isHovered]);
 
   const nextSlide = () => {
     setCurrentSlide((prevSlide) => (prevSlide + 1) % carouselImages.length);
@@ -25,8 +30,31 @@ export default function Carousel() {
     );
   };
 
+  // Handle keyboard navigation
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowRight") {
+      nextSlide();
+    } else if (e.key === "ArrowLeft") {
+      prevSlide();
+    }
+  };
+
+  // Add event listener for keyboard navigation
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
-    <section className="relative h-[calc(100vh-80px)] overflow-hidden">
+    <section
+      className="relative h-[calc(100vh-80px)] overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      role="region"
+      aria-label="Image Carousel"
+    >
       <AnimatePresence initial={false}>
         <motion.div
           key={currentSlide}
@@ -59,15 +87,31 @@ export default function Carousel() {
       <button
         onClick={prevSlide}
         className="absolute p-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full left-4 top-1/2"
+        aria-label="Previous Slide"
       >
         <ChevronLeft className="w-6 h-6 text-purple-800" />
       </button>
       <button
         onClick={nextSlide}
         className="absolute p-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full right-4 top-1/2"
+        aria-label="Next Slide"
       >
         <ChevronRight className="w-6 h-6 text-purple-800" />
       </button>
+
+      {/* Indicators */}
+      <div className="absolute flex space-x-2 transform -translate-x-1/2 bottom-4 left-1/2">
+        {carouselImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full ${
+              currentSlide === index ? "bg-purple-800" : "bg-white opacity-50"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </section>
   );
 }

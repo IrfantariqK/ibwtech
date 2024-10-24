@@ -12,15 +12,27 @@ export default function Contact() {
   });
 
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!validateEmail(formData.email)) {
+      setStatus("Please enter a valid email address.");
+      return;
+    }
+
     setStatus("Sending...");
+    setLoading(true);
 
     try {
       const response = await fetch("/api/sendemail", {
@@ -37,10 +49,12 @@ export default function Contact() {
         );
         setFormData({ name: "", email: "", message: "" }); // Clear form
       } else {
-        setStatus("Failed to send message.");
+        setStatus("Failed to send message. Please try again later.");
       }
     } catch (error) {
-      setStatus("Failed to send message.");
+      setStatus("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,7 +97,9 @@ export default function Contact() {
               required
             />
           </div>
-          <Button type="submit">Send Message</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Sending..." : "Send Message"}
+          </Button>
         </form>
         {status && <p className="mt-4 text-center text-purple-800">{status}</p>}
       </div>

@@ -5,6 +5,45 @@ import "swiper/css/autoplay";
 import { Pagination, Autoplay } from "swiper/modules";
 
 export default function About() {
+  const reviews = [
+    {
+      quote:
+        "Pleasant and efficient experience. The end product was produced taking account of my suggestions, so it felt like a collaborative and intuitive process. The more detail you can provide the better.",
+      name: "Mr Doodle",
+      role: "Client",
+    },
+    {
+      quote:
+        "Amazing experience! The team was so helpful and responsive. They went above and beyond to ensure everything was perfect.",
+      name: "Jane Doe",
+      role: "Project Manager",
+    },
+    {
+      quote:
+        "Excellent service and attention to detail. They truly care about their customers and ensure that every expectation is exceeded.",
+      name: "John Smith",
+      role: "Entrepreneur",
+    },
+    {
+      quote:
+        "I highly recommend them! Their attention to detail and customer service is unparalleled. I am extremely satisfied with the results.",
+      name: "Sarah Lee",
+      role: "Small Business Owner",
+    },
+    {
+      quote:
+        "They exceeded my expectations! The quality of work and their dedication to meeting deadlines were truly impressive.",
+      name: "Michael Johnson",
+      role: "CEO",
+    },
+    {
+      quote:
+        "The team was very professional and easy to work with. I’m extremely happy with the end product and the entire experience.",
+      name: "Emily Brown",
+      role: "Designer",
+    },
+  ];
+
   return (
     <section id="about" className="bg-purple-100 py-80">
       <div className="container px-4 mx-auto">
@@ -16,45 +55,13 @@ export default function About() {
             <Swiper
               modules={[Pagination, Autoplay]}
               pagination={{ clickable: true }}
-              autoplay={{ delay: 3000, disableOnInteraction: false }} // Set autoplay delay to 2 seconds
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
               spaceBetween={30}
               slidesPerView={1}
               className="w-full"
             >
               {/* Review Cards */}
-              {[
-                // Use an array for easier management of reviews
-                {
-                  quote:
-                    "Pleasant and efficient experience. The end product was produced taking account of my suggestions, so it felt like a collaborative and intuitive process. The more detail you can provide the better.",
-                  name: "Mr Doodle",
-                },
-                {
-                  quote:
-                    "Amazing experience! The team was so helpful and responsive. They went above and beyond to ensure everything was perfect.",
-                  name: "Jane Doe",
-                },
-                {
-                  quote:
-                    "Excellent service and attention to detail. They truly care about their customers and ensure that every expectation is exceeded.",
-                  name: "John Smith",
-                },
-                {
-                  quote:
-                    "I highly recommend them! Their attention to detail and customer service is unparalleled. I am extremely satisfied with the results.",
-                  name: "Sarah Lee",
-                },
-                {
-                  quote:
-                    "They exceeded my expectations! The quality of work and their dedication to meeting deadlines were truly impressive.",
-                  name: "Michael Johnson",
-                },
-                {
-                  quote:
-                    "The team was very professional and easy to work with. I’m extremely happy with the end product and the entire experience.",
-                  name: "Emily Brown",
-                },
-              ].map((review, index) => (
+              {reviews.map((review, index) => (
                 <SwiperSlide key={index}>
                   <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-lg">
                     <p className="mb-6 italic text-gray-600">
@@ -63,7 +70,9 @@ export default function About() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="text-lg font-bold">{review.name}</h4>
-                        <p className="text-sm text-gray-500">{review.role}</p>
+                        {review.role && (
+                          <p className="text-sm text-gray-500">{review.role}</p>
+                        )}
                       </div>
                       <div className="text-yellow-500">★★★★★</div>
                     </div>

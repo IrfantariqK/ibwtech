@@ -38,25 +38,29 @@ export default function Team() {
   }, []);
 
   return (
-    <section id="team" className="bg-white py-80">
+    <section id="team" className="py-20 bg-white md:py-40">
       <div className="container px-4 mx-auto">
-        <h2 className="mb-12 text-5xl font-bold text-center text-purple-800">
+        <h2 className="mb-8 text-3xl font-bold text-center text-purple-800 md:text-5xl">
           Our Global Impact
         </h2>
-        <div className="flex justify-center space-x-8 md:space-x-16">
+        <div className="flex flex-col justify-center space-y-8 md:flex-row md:space-y-0 md:space-x-16">
           <div className="text-center">
             <Users className="w-16 h-16 mx-auto mb-4 text-purple-600" />
-            <animated.h3 className="mb-2 text-4xl font-bold text-purple-800">
+            <animated.h3 className="mb-2 text-3xl font-bold text-purple-800 md:text-4xl">
               {numberOfEmployees.to((n) => Math.floor(n))}
             </animated.h3>
-            <p className="text-xl text-gray-600">Employees Worldwide</p>
+            <p className="text-lg text-gray-600 md:text-xl">
+              Employees Worldwide
+            </p>
           </div>
           <div className="text-center">
             <Building className="w-16 h-16 mx-auto mb-4 text-purple-600" />
-            <animated.h3 className="mb-2 text-4xl font-bold text-purple-800">
+            <animated.h3 className="mb-2 text-3xl font-bold text-purple-800 md:text-4xl">
               {numberOfClients.to((n) => Math.floor(n))}
             </animated.h3>
-            <p className="text-xl text-gray-600">Satisfied Clients</p>
+            <p className="text-lg text-gray-600 md:text-xl">
+              Satisfied Clients
+            </p>
           </div>
         </div>
       </div>

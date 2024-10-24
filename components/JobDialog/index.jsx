@@ -11,8 +11,8 @@ export default function JobDialog({ isOpen, onClose, job }) {
   return (
     <Dialog open={isOpen} onClose={onClose}>
       <div className="fixed inset-0 bg-black bg-opacity-30" />
-      <div className="fixed inset-0 flex items-center justify-center">
-        <Dialog.Panel className="max-w-md p-6 mx-auto bg-white rounded-lg">
+      <div className="fixed inset-0 flex items-center justify-center p-4">
+        <Dialog.Panel className="w-full max-w-md p-6 bg-white rounded-lg">
           <Dialog.Title className="text-xl font-bold">{title}</Dialog.Title>
           <Dialog.Description className="mt-2 text-gray-600">
             Apply for {title} in {department} department.
@@ -36,10 +36,12 @@ export default function JobDialog({ isOpen, onClose, job }) {
             </div>
           </form>
           <div className="flex justify-between mt-6">
-            <Button onClick={onClose}>Close</Button>
+            <Button onClick={onClose} className="w-full mr-2 md:w-auto">
+              Close
+            </Button>
             <Button
               type="submit"
-              className="text-white bg-purple-600 hover:bg-purple-700"
+              className="w-full text-white bg-purple-600 hover:bg-purple-700 md:w-auto"
             >
               Submit Application
             </Button>

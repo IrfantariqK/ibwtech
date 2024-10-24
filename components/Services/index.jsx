@@ -24,9 +24,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="bg-white py-80">
+    <section id="services" className="py-20 bg-white md:py-40">
       <div className="container px-4 mx-auto">
-        <h2 className="mb-12 text-5xl font-bold text-center text-purple-800">
+        <h2 className="mb-8 text-3xl font-bold text-center text-purple-800 md:text-5xl">
           Our Services
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -39,10 +39,12 @@ export default function Services() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <service.icon className="w-12 h-12 mx-auto mb-4 text-purple-600" />
-              <h3 className="mb-2 text-xl font-semibold text-center text-purple-800">
+              <h3 className="mb-2 text-lg font-semibold text-center text-purple-800 md:text-xl">
                 {service.title}
               </h3>
-              <p className="text-center text-gray-600">{service.description}</p>
+              <p className="text-sm text-center text-gray-600 md:text-base">
+                {service.description}
+              </p>
             </motion.div>
           ))}
         </div>
